@@ -1,0 +1,12 @@
+{
+  "name": "openclaw-product-intelligence",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "check": "npm run check -w backend && npm run check -w frontend"
+  }
+}
