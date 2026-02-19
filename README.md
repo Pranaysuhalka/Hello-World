@@ -7,8 +7,10 @@ An open-source-first full-stack MVP inspired by modern product intelligence work
 ### Frontend (React + Vite)
 - Barcode/category/notes intake
 - Front/back label image upload (drag/drop)
-- Product database table
-- Composition insight view with confidence framing
+- Manual text correction field to supplement OCR
+- Product database table with search
+- Composition insight view + duplicate indicator
+- Automatic side-by-side ingredient overlap snapshot
 - CSV export link per product
 
 ### Backend (Node + Express)
@@ -16,7 +18,8 @@ An open-source-first full-stack MVP inspired by modern product intelligence work
 - OCR adapter service (currently mock, pluggable for Tesseract/PaddleOCR)
 - Label parser (ingredients, claims, manufacturer, pack size)
 - Deformulation-style estimate engine with confidence bands
-- Search/list APIs and per-product CSV export
+- Search/list APIs, compare API, and per-product CSV export
+- JSON file persistence (`backend/data/products.json`) with duplicate fingerprinting
 
 ## Compliance posture
 
@@ -43,22 +46,19 @@ npm run dev -w frontend
 
 Frontend defaults to `http://localhost:5173` and backend to `http://localhost:8787`.
 
+## API endpoints
+
+- `GET /health`
+- `POST /api/scan`
+- `GET /api/products?q=<search>`
+- `GET /api/products/:id`
+- `GET /api/products/:id/export`
+- `GET /api/compare?a=<id>&b=<id>`
+
 ## Suggested open-source upgrades
 
 1. Swap mock OCR in `backend/src/services/ocrService.js` with Tesseract.js or PaddleOCR microservice.
-2. Add SQLite/Postgres persistence in place of in-memory storage.
-3. Add duplicate detection and similarity search (MinHash + pgvector).
+2. Move JSON storage to SQLite/Postgres.
+3. Add fuzzy duplicate matching (MinHash/SimHash + pgvector).
 4. Add market-specific compliance ruleset modules (India/GCC/EU).
 5. Add auth + multi-user workspace model.
-
-## MVP-to-v2 roadmap
-
-### 14-day MVP
-- Current stack with end-to-end scanning + extraction + export.
-- Manual correction panel and ingestion QA queue.
-
-### 45-day v2
-- Knowledge graph and RAG assistant.
-- Competitor comparison workflows.
-- Procurement/COGS estimate plugin hooks.
-- Team dashboard with role-based access.

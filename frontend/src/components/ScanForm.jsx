@@ -4,7 +4,7 @@ import { UploadCloud } from "lucide-react";
 export function ScanForm({ onSubmit, loading }) {
   const { acceptedFiles, getInputProps, getRootProps, isDragActive } = useDropzone({
     accept: { "image/*": [] },
-    maxFiles: 4
+    maxFiles: 6
   });
 
   const handleSubmit = (event) => {
@@ -28,6 +28,10 @@ export function ScanForm({ onSubmit, loading }) {
           <option value="haircare">Haircare</option>
           <option value="babycare">Babycare</option>
         </select>
+      </label>
+      <label>
+        Manual label text (optional override)
+        <textarea name="manualLabelText" rows={4} placeholder="Paste ingredients/claims text from packaging if OCR misses details" />
       </label>
       <label>
         Notes

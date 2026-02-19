@@ -15,3 +15,9 @@ export async function fetchProducts(query = "") {
   if (!res.ok) throw new Error("Failed to fetch products");
   return res.json();
 }
+
+export async function compareProducts(a, b) {
+  const res = await fetch(`${API_BASE}/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`);
+  if (!res.ok) throw new Error("Compare failed");
+  return res.json();
+}

@@ -1,14 +1,17 @@
-export function ProductTable({ products, onSelect }) {
+export function ProductTable({ products, onSelect, search, onSearchChange }) {
   return (
     <div className="card table-card">
-      <h2>Knowledge Database</h2>
+      <div className="table-header-row">
+        <h2>Knowledge Database</h2>
+        <input value={search} onChange={(e) => onSearchChange(e.target.value)} placeholder="Search by product, brand, barcode" />
+      </div>
       <table>
         <thead>
           <tr>
             <th>Product</th>
             <th>Brand</th>
             <th>Category</th>
-            <th>Claims</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -17,7 +20,7 @@ export function ProductTable({ products, onSelect }) {
               <td>{item.productName}</td>
               <td>{item.brand}</td>
               <td>{item.category}</td>
-              <td>{item.claims?.slice(0, 2).join(", ") || "-"}</td>
+              <td>{item.duplicateOf ? "Possible duplicate" : "New"}</td>
             </tr>
           ))}
         </tbody>
